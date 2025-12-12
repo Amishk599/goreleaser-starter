@@ -33,7 +33,7 @@ release:
   # GoReleaser will use GITHUB_TOKEN env var when running in CI
   github:
     owner: Amishk599
-    name: hello-goreleaser
+    name: goreleaser-starter
 
 changelog:
   use: git
