@@ -1,0 +1,39 @@
+version: 2
+
+project_name: goreleaser-starter
+
+builds:
+  - id: goreleaser-starter
+    main: ./cmd/hello
+    binary: goreleaser-starter
+    goos:
+      - linux
+      - darwin
+      - windows
+    goarch:
+      - amd64
+      - arm64
+    ldflags:
+      - "-s -w"
+      - "-X main.Version={{ .Version }}"
+      - "-X main.Commit={{ .Commit }}"
+      - "-X main.Date={{ .Date }}"
+
+archives:
+  - id: goreleaser-starter-archives
+    builds:
+      - goreleaser-starter
+    format: tar.gz
+    name_template: "{{ .ProjectName }}_{{ .Version }}_{{ .Os }}_{{ .Arch }}"
+
+checksum:
+  name_template: "checksums_{{ .Version }}.txt"
+
+release:
+  # GoReleaser will use GITHUB_TOKEN env var when running in CI
+  github:
+    owner: Amishk599
+    name: hello-goreleaser
+
+changelog:
+  use: git
